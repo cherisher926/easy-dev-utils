@@ -47,9 +47,9 @@
 
 test1.xls
 
-![](http://oobu4m7ko.bkt.clouddn.com/1512115263.png?imageMogr2/thumbnail/!70p)
+![](http://oobu4m7ko.bkt.clouddn.com/1512115263.png?imageMogr2/thumbnail/!100p)
 
 test2.xlsx
 
-![](http://oobu4m7ko.bkt.clouddn.com/1512115321.png?imageMogr2/thumbnail/!70p)
+![](http://oobu4m7ko.bkt.clouddn.com/1512115321.png?imageMogr2/thumbnail/!100p)
 
