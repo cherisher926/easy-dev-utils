@@ -87,7 +87,7 @@ public class ExcelExportUtil implements Closeable {
   @SuppressWarnings("unchecked")
   public ExcelExportUtil build(String sheetName) {
     buildReady();
-    //创建表
+    //创建表,如果已存在excelBook,那么新增表
     Sheet sheet = sheetName == null ? workbook.createSheet() : workbook.createSheet(sheetName);
 
     //写表头

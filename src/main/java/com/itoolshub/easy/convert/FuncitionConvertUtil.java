@@ -1,5 +1,6 @@
 package com.itoolshub.easy.convert;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.Date;
@@ -21,6 +22,17 @@ public class FuncitionConvertUtil {
       return YMDHMS_.format(v);
     }
     return String.valueOf(v);
+  };
+
+  /**
+   * 小写转大写过程
+   */
+  public static Function upperString = v -> {
+    final String value = String.valueOf(v);
+    if (v instanceof String) {
+      return StringUtils.upperCase(value);
+    }
+    return value;
   };
 
 }

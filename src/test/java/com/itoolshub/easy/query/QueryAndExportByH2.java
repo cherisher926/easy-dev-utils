@@ -8,13 +8,11 @@ import com.itoolshub.easy.util.PropertiesUtil;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.h2.tools.RunScript;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -32,11 +30,9 @@ public class QueryAndExportByH2 {
 
   private QueryRunner queryRunner = new QueryRunner();
 
-  final FastDateFormat instance = FastDateFormat.getInstance("yyyy-MM-dd hh:MM:ss");
-
 
   @Before
-  public void before() throws FileNotFoundException, SQLException {
+  public void before() throws SQLException {
     conn = new ConnFactory(PropertiesUtil.readClasspath("db1.properties")).getConnect();
     RunScript.execute(conn,
         new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data.sql")));
