@@ -6,7 +6,12 @@
 
     <groupId>com.itoolshub</groupId>
     <artifactId>easy-excel</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>itoolshub-custom</module>
+        <module>itoolshub-base</module>
+    </modules>
 
     <!--一款快速链接数据库导出各种表格的工具-->
 

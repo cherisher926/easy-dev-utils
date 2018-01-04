@@ -52,6 +52,4 @@ fabric.properties
 
 
 # custom
-
-/src/main/resources/mycustom/
-/src/main/java/com/itoolshub/easy/customrun/
+/itoolshub-custom/

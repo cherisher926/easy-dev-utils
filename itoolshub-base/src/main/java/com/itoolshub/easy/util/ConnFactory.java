@@ -24,6 +24,13 @@ public class ConnFactory {
     this.properties = properties;
   }
 
+  public ConnFactory(String url,String username,String password) {
+    this.properties = new Properties();
+    this.properties.setProperty("url", url);
+    this.properties.setProperty("username", username);
+    this.properties.setProperty("password", password);
+  }
+
   public Connection getConnect() {
     try {
       return DriverManager.getConnection(
