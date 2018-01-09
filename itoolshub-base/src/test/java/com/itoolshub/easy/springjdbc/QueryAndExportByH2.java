@@ -1,53 +1,46 @@
-package com.itoolshub.easy.query;
+package com.itoolshub.easy.springjdbc;
 
 import com.itoolshub.easy.convert.FuncitionConvertUtil;
 import com.itoolshub.easy.model.ExcelHeader;
-import com.itoolshub.easy.util.ConnFactory;
+import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
 import com.itoolshub.easy.util.ExcelExportUtil;
-import com.itoolshub.easy.util.PropertiesUtil;
 
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.h2.tools.RunScript;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/jdbc.html
  * @author Quding Ding
  * @since 2017/11/30
  */
-public class QueryAndExportByH2 {
-
-  private Connection conn;
-
-  private QueryRunner queryRunner = new QueryRunner();
-
+public class QueryAndExportByH2 extends AbstractSpringJdbcTemplate{
 
   @Before
   public void before() throws SQLException {
-    conn = new ConnFactory(PropertiesUtil.readClasspath("db1.properties")).getConnect();
-    RunScript.execute(conn,
+    // init中初始化连接
+    init("db1.properties");
+    RunScript.execute(getConn(),
         new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data.sql")));
   }
 
   @Test
-  public void testQueryListMap() throws SQLException {
-    final List<Map<String, Object>> result = queryRunner.query(conn, "select * from user", new MapListHandler());
+  public void testQueryListMap() {
+    final List<Map<String, Object>> result = jdbcTemplate.queryForList("select * from user");
     Assert.assertEquals(result.size(),2);
   }
 
   @Test
-  public void testQueryAndExport() throws SQLException {
+  public void testQueryAndExport() {
     //查询出结果,使用Map存储,当然dbUtils也支持bean存储
-    final List<Map<String, Object>> result = queryRunner.query(conn, "select * from user", new MapListHandler());
+    final List<Map<String, Object>> result = jdbcTemplate.queryForList("select * from user");
 
     //表格对应的表头,以及该表头的数据处理
     LinkedHashMap<String, ExcelHeader> header = new LinkedHashMap<>();

@@ -16,6 +16,13 @@
     <!--一款快速链接数据库导出各种表格的工具-->
 
     <dependencies>
+        <!--增加spring jdbc start-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
+        <!--增加spring jdbc end-->
 
         <dependency>
             <groupId>commons-dbutils</groupId>
@@ -47,7 +54,16 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.6-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
