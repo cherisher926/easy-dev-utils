@@ -11,10 +11,16 @@
     <modules>
         <module>base-sql</module>
         <module>base-excel</module>
+        <module>base-pojo</module>
     </modules>
 
     <properties>
+        <!--kotlin-->
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+        <kotlin.version>1.2.10</kotlin.version>
+
         <easy-dev-utils>1.0.0</easy-dev-utils>
+        <freemarker.version>2.3.27-incubating</freemarker.version>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +61,16 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>2.9.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
             <!--util end-->
 

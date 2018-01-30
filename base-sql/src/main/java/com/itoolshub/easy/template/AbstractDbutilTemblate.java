@@ -25,7 +25,8 @@ public abstract class AbstractDbutilTemblate {
     if (null == connFactory) {
       this.connFactory = new ConnFactory(PropertiesUtil.readClasspath(dataSourceProp));
     }
-    return this.connFactory.getConnect();
+    final Connection connect = this.connFactory.getConnect();
+    return connect;
   }
 
 
