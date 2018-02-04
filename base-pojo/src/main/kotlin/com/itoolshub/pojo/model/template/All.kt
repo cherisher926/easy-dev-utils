@@ -13,6 +13,7 @@ enum class All(val key: String,val type: Class<*>) {
      */
     ALL_CURRENT_TIME("currentTime", Date::class.java),
 
+//    JavaBean相关模板字段
     JAVABEAN_PACKAGE_NAME("packageName",String::class.java),
     JAVABEAN_CLASS_NAME("className",String::class.java),
     JAVABEAN_FILED("fileds",JavaTemplaetField::class.java), //集合

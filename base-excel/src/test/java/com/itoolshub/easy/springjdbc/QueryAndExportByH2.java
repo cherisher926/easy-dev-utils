@@ -2,11 +2,10 @@ package com.itoolshub.easy.springjdbc;
 
 import com.itoolshub.easy.excel.convert.FuncitionConvertUtil;
 import com.itoolshub.easy.excel.model.ExcelHeader;
-import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
 import com.itoolshub.easy.excel.util.ExcelExportUtil;
+import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
 
 import org.h2.tools.RunScript;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,12 +28,6 @@ public class QueryAndExportByH2 extends AbstractSpringJdbcTemplate{
     init("db1.properties");
     RunScript.execute(getConn(),
         new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data.sql")));
-  }
-
-  @Test
-  public void testQueryListMap() {
-    final List<Map<String, Object>> result = jdbcTemplate.queryForList("select * from user");
-    Assert.assertEquals(result.size(),2);
   }
 
   @Test

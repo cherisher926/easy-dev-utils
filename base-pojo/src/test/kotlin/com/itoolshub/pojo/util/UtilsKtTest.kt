@@ -8,7 +8,7 @@ class UtilsKtTest {
     @Test
     fun testparsePathToPackage() {
         val path = "/Users/niuli/workspace/quding-git/easy-dev-utils/base-pojo/src/main/java/com/itoolshub/pojo"
-        Assert.assertEquals(parsePathToPackage(path),"com.itoolshub.pojo")
+        Assert.assertEquals(FiledUtils.parsePathToPackage(path),"com.itoolshub.pojo")
     }
 
 }

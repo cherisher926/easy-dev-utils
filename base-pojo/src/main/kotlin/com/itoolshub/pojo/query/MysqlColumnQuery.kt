@@ -8,7 +8,7 @@ import org.springframework.util.CollectionUtils
 import java.sql.Connection
 import java.util.stream.Collectors
 
-object MysqlUtilsQuery : AbstractDbutilTemblate(),QueryTableModel {
+object MysqlColumnQuery : AbstractDbutilTemblate(),QueryTableModel {
     /**
      * 结果转换器
      */

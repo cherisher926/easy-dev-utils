@@ -7,7 +7,6 @@ import com.itoolshub.easy.template.AbstractDbutilTemblate;
 
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.h2.tools.RunScript;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,12 +31,6 @@ public class QueryAndExportByH2 extends AbstractDbutilTemblate{
     conn = init("db1.properties");
     RunScript.execute(conn,
         new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("data.sql")));
-  }
-
-  @Test
-  public void testQueryListMap() throws SQLException {
-    final List<Map<String, Object>> result = queryRunner.query(conn, "select * from user", new MapListHandler());
-    Assert.assertEquals(result.size(),2);
   }
 
   @Test

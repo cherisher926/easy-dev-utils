@@ -32,12 +32,6 @@
             <artifactId>freemarker</artifactId>
         </dependency>
 
-
-        <!--test start-->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
     </dependencies>
 
 

@@ -25,6 +25,7 @@ object FreeMarkerUtil {
                       ftlName: String, fileOut: OutputStreamWriter) {
         val template: Template = cfg.getTemplate(ftlName)!!
         template.process(rootData, fileOut)
+        fileOut.close()
     }
 
 }
