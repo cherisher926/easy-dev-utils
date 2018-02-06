@@ -12,16 +12,15 @@
     <artifactId>base-excel</artifactId>
     <version>${easy-dev-utils}</version>
 
-
     <dependencies>
         <!--itoolshub start-->
         <dependency>
             <groupId>com.itoolshub</groupId>
             <artifactId>base-sql</artifactId>
             <version>${easy-dev-utils}</version>
+            <scope>test</scope>
         </dependency>
         <!--itoolshub end-->
-
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -29,11 +28,6 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <dependency>

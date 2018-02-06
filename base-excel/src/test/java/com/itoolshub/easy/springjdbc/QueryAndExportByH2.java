@@ -3,6 +3,7 @@ package com.itoolshub.easy.springjdbc;
 import com.itoolshub.easy.excel.convert.FuncitionConvertUtil;
 import com.itoolshub.easy.excel.model.ExcelHeader;
 import com.itoolshub.easy.excel.util.ExcelExportUtil;
+import com.itoolshub.easy.excel.model.ExcelFileType;
 import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
 
 import org.h2.tools.RunScript;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/jdbc.html
@@ -41,20 +43,19 @@ public class QueryAndExportByH2 extends AbstractSpringJdbcTemplate{
     header.put("username", ExcelHeader.create("用户名"));
     header.put("email", ExcelHeader.create("用户邮箱"));
     header.put("avatar", ExcelHeader.create("用户头像"));
+    header.put("status", ExcelHeader.create("用户状态"));
+    //自定义转换
+    header.put("role", ExcelHeader.create("用户角色", (Function<String, String>) str -> "1".equals(str) ? "管理员" : "普通用户"));
     //对于日期使用转换器,转换器为java8的Function函数实现
     header.put("last_login_date", ExcelHeader.create("用户上次登录时间", FuncitionConvertUtil.date2String));
-    header.put("status", ExcelHeader.create("用户id"));
-    header.put("role", ExcelHeader.create("用户id"));
-    //对于日期使用转换器,转换器为java8的Function函数实现
-    header.put("gmt_create", ExcelHeader.create("用户id",FuncitionConvertUtil.date2String));
+    header.put("gmt_create", ExcelHeader.create("用户创建时间",FuncitionConvertUtil.date2String));
 
-    //导出表
     /**
      * 查出来的map直接导出表格
      */
     ExcelExportUtil.fromMap(result)
         .displayHeader(header)
-        .excelType(ExcelExportUtil.ExcelFileType.XLS)
+        .excelType(ExcelFileType.XLS)
         .build("用户表")
         .writeTo("/tmp/test1.xls");
     /**
@@ -62,7 +63,7 @@ public class QueryAndExportByH2 extends AbstractSpringJdbcTemplate{
      */
     ExcelExportUtil.fromMap(result)
         .displayHeader(header)
-        .excelType(ExcelExportUtil.ExcelFileType.XLSX)
+        .excelType(ExcelFileType.XLSX)
         .build("用户表1")
         .andFormMap(result)
         .displayHeader(header)

@@ -17,22 +17,11 @@ public class FuncitionConvertUtil {
   /**
    * date转yyyy-MM-dd hh:MM:ss形式转换器
    */
-  public static Function date2String = v -> {
-    if (v instanceof Date) {
-      return YMDHMS_.format(v);
-    }
-    return String.valueOf(v);
-  };
+  public static Function<Date,String> date2String = v -> YMDHMS_.format(v);
 
   /**
    * 小写转大写过程
    */
-  public static Function upperString = v -> {
-    final String value = String.valueOf(v);
-    if (v instanceof String) {
-      return StringUtils.upperCase(value);
-    }
-    return value;
-  };
+  public static Function<String,String> upperString = StringUtils::upperCase;
 
 }

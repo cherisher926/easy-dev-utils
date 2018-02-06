@@ -8,7 +8,7 @@ import java.sql.Connection
  * @author Quding Ding
  * @since 2018/1/29
  */
-interface QueryTableModel {
+interface QueryTableFromDb {
 
     /**
      * 根据数据库以及表名称查询到具体的表信息

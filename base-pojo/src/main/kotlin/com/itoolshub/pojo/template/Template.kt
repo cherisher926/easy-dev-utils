@@ -1,5 +1,6 @@
 package com.itoolshub.pojo.template
 
+import com.itoolshub.pojo.util.FreeMarkerUtil
 import java.io.FileWriter
 
 /**
@@ -50,4 +51,12 @@ interface Template {
         mapRootData().set(key, value)
         return mapRootData()
     }
+
+    /**
+     * 渲染模板
+     */
+    fun renderTemplate() {
+        FreeMarkerUtil.parseTemplate(this.mapRootData(), this.templateName(), this.targetOutFile())
+    }
+
 }

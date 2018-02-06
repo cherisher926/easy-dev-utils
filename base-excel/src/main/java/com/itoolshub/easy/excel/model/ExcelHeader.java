@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.function.Function;
 
 /**
+ * excel header config
  * @author Quding Ding
  * @since 2017/12/1
  */
@@ -29,7 +30,7 @@ public class ExcelHeader {
     return new ExcelHeader(displayHeader, Function.identity());
   }
 
-  public static ExcelHeader create(String displayHeader,Function convert){
+  public static <S,R> ExcelHeader create(String displayHeader,Function<S,R> convert){
     return new ExcelHeader(displayHeader, convert);
   }
 

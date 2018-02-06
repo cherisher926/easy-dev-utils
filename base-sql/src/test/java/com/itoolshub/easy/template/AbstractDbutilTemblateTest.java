@@ -12,8 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class AbstractDbutilTemblateTest extends AbstractDbutilTemblate{
-
+public class AbstractDbutilTemblateTest extends AbstractDbutilTemblate {
   private Connection conn;
 
   @Before
