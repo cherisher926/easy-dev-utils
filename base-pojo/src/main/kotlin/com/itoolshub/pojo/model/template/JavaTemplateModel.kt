@@ -8,10 +8,15 @@ import com.itoolshub.pojo.util.FiledUtils
  * @author Quding Ding
  * @since 2018/1/30
  */
-data class JavaTemplateModel (var className: String,val packageName: String,
-                              private val tableModel: TableModel) {
+data class JavaTemplateModel(var className: String, val packageName: String,
+                             private val tableModel: TableModel,
+                             private val dataTypeconversion: Map<String, String>) {
 
   var fileds: MutableList<JavaTemplaetField> = mutableListOf()
+
+  val originTableName: String
+    get() = tableModel.tableName
+
 
   init {
     // 转换成Java所需要的驼峰类
@@ -19,7 +24,9 @@ data class JavaTemplateModel (var className: String,val packageName: String,
         .map {
           JavaTemplaetField(
               FiledUtils.parseColumnNameToFiledName(it.filed),
-              FiledUtils.parseDataTypeToJavaType(it.type),
+              it.filed,
+              FiledUtils.parseDataTypeToJavaType(it.type, dataTypeconversion),
+              FiledUtils.parseDataType(it.type),
               it.comment,
               it.default ?: "null"
           )
@@ -27,6 +34,9 @@ data class JavaTemplateModel (var className: String,val packageName: String,
   }
 }
 
-class JavaTemplaetField (val name: String,val type: String,
-                         val comment: String? = "",
-                         val defaultVal: String)
+class JavaTemplaetField(val javaName: String,
+                        val originName: String,
+                        val javaType: String,
+                        val originType: String,
+                        val comment: String? = "",
+                        val defaultVal: String)

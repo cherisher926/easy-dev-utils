@@ -1,10 +1,11 @@
-package com.itoolshub.pojo.template.javabean
+package com.itoolshub.pojo.template.mybatis
 
 import com.itoolshub.pojo.model.table.ColumnModel
 import com.itoolshub.pojo.model.table.TableModel
+import com.itoolshub.pojo.template.javabean.JavaBeanTemplate
 import org.junit.Test
 
-class JavaBeanTemplateTest {
+class MybatisMapperTemplateTest {
 
   @Test
   fun testParse() {
@@ -15,11 +16,8 @@ class JavaBeanTemplateTest {
     val tableModel = TableModel("user", listOf(filed1, filed2, filed3))
 
     // 定义文件,渲染
-    val template = JavaBeanTemplate(tableModel, "Downloads/quding")
-    assert(template.className().equals("User"))
-    assert(template.fileName().equals("User.java"))
-    template.renderTemplate()
+    val javaTemplate = JavaBeanTemplate(tableModel, "Downloads/quding")
+    val mybatisTemplate = MybatisMapperTemplate(javaTemplate.javaModel!!,"Downloads/quding")
+    mybatisTemplate.renderTemplate()
   }
-
-
 }

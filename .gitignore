@@ -52,4 +52,4 @@ fabric.properties
 
 
 # custom
-/itoolshub-custom/
+*.iml

@@ -38,30 +38,24 @@ object FiledUtils {
   }
 
   /**
-   * 映射表
-   */
-  private val DEFAULT_DATA_TYPE_JAVA_TYPE: Map<String, String> = mapOf(
-      Pair("tinyint", "Integer"),
-      Pair("int", "Integer"),
-      Pair("varchar", "String"),
-      Pair("text", "String"),
-      Pair("char", "String"),
-      Pair("bigint", "Long"),
-      Pair("datetime", "Date"),
-      Pair("timestamp", "Date"),
-      Pair("float", "Double")
-  )
-
-  /**
    * 转换数据类型到Java类型
    */
-  fun parseDataTypeToJavaType(dataType: String): String {
+  fun parseDataTypeToJavaType(dataType: String, dataTypeconversion: Map<String, String>): String {
     val realDataType = if (dataType.lastIndexOf(')') > 0) {
       dataType.substring(0, dataType.indexOf('('))
     } else {
       dataType
     }
-    return DEFAULT_DATA_TYPE_JAVA_TYPE.getOrDefault(realDataType, "Object")
+    return dataTypeconversion.getOrDefault(realDataType, "Object")
   }
+
+  fun parseDataType(dataType: String): String {
+    return if (dataType.lastIndexOf(')') > 0) {
+      dataType.substring(0, dataType.indexOf('('))
+    } else {
+      dataType
+    }
+  }
+
 
 }

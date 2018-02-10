@@ -1,59 +1,41 @@
 package com.itoolshub.pojo.template.javabean
 
 import com.itoolshub.pojo.model.table.TableModel
+import com.itoolshub.pojo.model.table.toJavaTemplateModel
 import com.itoolshub.pojo.model.template.All
 import com.itoolshub.pojo.model.template.JavaTemplateModel
-import com.itoolshub.pojo.template.Template
+import com.itoolshub.pojo.template.AbstractTemplate
 import com.itoolshub.pojo.util.FiledUtils
-import java.io.File
-import java.io.FileWriter
-import java.util.*
 
 /**
  * JavaBean模板
  * @author Quding Ding
  * @since 2018/1/29
  */
-open class JavaBeanTemplate(private var className: String?,
+open class JavaBeanTemplate(private val tableModel: TableModel,
                             private val targetPath: String,
-                            private val tableModel: TableModel) : Template {
-    /**
-     * 存储数据的容器
-     */
-    private val mapRootData: MutableMap<String, Any> = mutableMapOf()
-
+                            private var className: String? = null,
+                            var javaModel: JavaTemplateModel? = null) : AbstractTemplate() {
     /**
      * 初始化逻辑
      */
     init {
+        // 推测出className
         this.className = this.className ?: FiledUtils.parseTableNameToClassName(tableModel.tableName)
-        val javaTemplateModel = JavaTemplateModel(this.className!!,this.packageName(),tableModel)
-        this.mapRootData.set(All.ALL_CURRENT_TIME.key, Date())
-        this.mapRootData.set(All.JAVABEAN_PACKAGE_NAME.key, javaTemplateModel.packageName)
-        this.mapRootData.set(All.JAVABEAN_CLASS_NAME.key, javaTemplateModel.className)
-        this.mapRootData.set(All.JAVABEAN_FILED.key, javaTemplateModel.fileds)
+        // 获取数据
+        javaModel = this.javaModel ?: tableModel.toJavaTemplateModel(this.packageName(), DEFAULT_DATA_TYPE_JAVA_TYPE)
+        //写入数据源
+        this.mapRootData.set(All.JAVABEAN_PACKAGE_NAME.key, javaModel!!.packageName)
+        this.mapRootData.set(All.JAVABEAN_CLASS_NAME.key, javaModel!!.className)
+        this.mapRootData.set(All.JAVABEAN_FILEDS.key, javaModel!!.fileds)
+    }
+
+    override fun filePath(): String {
+        return targetPath
     }
 
     override fun templateName(): String {
         return "javabean/JavaBeanTemplate.ftl"
-    }
-
-    override fun targetOutFile(): FileWriter {
-        val filePath = System.getProperty("user.home") + File.separatorChar + this.targetPath +
-                File.separatorChar
-        val file = File(filePath)
-        if (!file.exists() && file.mkdirs()) {
-            println("init filepath $filePath")
-        }
-        return FileWriter(filePath+fullFileName())
-    }
-
-    private fun packageName(): String {
-        return FiledUtils.parsePathToPackage(this.targetPath)
-    }
-
-    override fun mapRootData(): MutableMap<String, Any> {
-        return this.mapRootData
     }
 
     override fun className(): String {
@@ -62,6 +44,13 @@ open class JavaBeanTemplate(private var className: String?,
 
     override fun suffix(): String {
         return "java"
+    }
+
+    /**
+     * 根据文件路径推测出包名
+     */
+    private fun packageName(): String {
+        return FiledUtils.parsePathToPackage(this.targetPath)
     }
 
 }
