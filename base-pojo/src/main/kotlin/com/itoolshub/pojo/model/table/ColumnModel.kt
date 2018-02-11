@@ -5,16 +5,13 @@ package com.itoolshub.pojo.model.table
  * @author Quding Ding
  * @since 2018/1/28
  */
-data class ColumnModel(val filed: String,val type: String,val nullAble: Boolean) {
-
-    var collation: String? = null
-
-    var key: String? = null
-
-    var default: String? = null
-
-    var extra: String? = null
-
-    var comment: String? = null
+data class ColumnModel(val filed: String,
+                       val type: String,
+                       val collation: String? = null,
+                       val nullAble: Boolean = false,
+                       val key: String? = null,
+                       val default: String? = null,
+                       val extra: String? = null,
+                       val comment: String? = null) {
 
 }

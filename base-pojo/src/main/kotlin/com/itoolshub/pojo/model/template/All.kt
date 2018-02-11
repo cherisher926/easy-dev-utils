@@ -14,13 +14,10 @@ enum class All(val key: String,val type: Class<*>) {
     ALL_CURRENT_TIME("ALL_CURRENT_TIME", Date::class.java),
 
     // JavaBean相关模板字段
-    JAVABEAN_PACKAGE_NAME("JAVABEAN_PACKAGE_NAME",String::class.java),
-    JAVABEAN_CLASS_NAME("JAVABEAN_CLASS_NAME",String::class.java),
-    JAVABEAN_FILEDS("JAVABEAN_FILEDS",JavaTemplaetField::class.java), //集合
+    JAVABEAN_MODEL("JAVABEAN_MODEL",JavaTemplateModel::class.java),
 
     // Mybatis Mapper Interface
-    MYBATIS_INTEFACE_PACKAGE_NAME("MYBATIS_INTEFACE_PACKAGE_NAME",String::class.java),
-    MYBATIS_INTEFACE_JAVA_MODEL("MYBATIS_INTEFACE_JAVA_MODEL",JavaTemplateModel::class.java),
-    MYBATIS_ALL_STR_COLUMN("MYBATIS_ALL_STR_COLUMN",String::class.java)
+    MYBATIS_INTEFACE_MODEL("MYBATIS_INTEFACE_MODEL",MybatisInterfaceTemplateModel::class.java),
+    MYBATIS_XML_MODEL("MYBATIS_XML_MODEL",MybatisTemplateModel::class.java)
 
 }

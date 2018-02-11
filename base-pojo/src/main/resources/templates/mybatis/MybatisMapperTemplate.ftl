@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${MYBATIS_INTEFACE_PACKAGE_NAME}.${MYBATIS_INTEFACE_JAVA_MODEL.className}Mapper">
+<mapper namespace="${MYBATIS_INTEFACE_MODEL.fullClassName}">
 
-    <resultMap id="BASE-RESULTMAP" type="${MYBATIS_INTEFACE_JAVA_MODEL.packageName}.${MYBATIS_INTEFACE_JAVA_MODEL.className}">
-        <#list MYBATIS_INTEFACE_JAVA_MODEL.fileds as filed>
+    <resultMap id="BASE-RESULTMAP" type="${MYBATIS_XML_MODEL.javaModel.fullClassName}">
+        <#list MYBATIS_XML_MODEL.javaModel.fileds as filed>
             <result column="${filed.originName}" property="${filed.javaName}" javaType="${filed.javaType}" jdbcType="${filed.originType}"/>
         </#list>
     </resultMap>
 
     <sql id="BASE-ALLCOLS">
-        ${MYBATIS_ALL_STR_COLUMN}
+        ${MYBATIS_XML_MODEL.allColumns}
     </sql>
 
     <select id="findById" resultMap="BASE-RESULTMAP">
         SELECT
         <include refid="BASE-ALLCOLS"/>
-        FROM ${MYBATIS_INTEFACE_JAVA_MODEL.originTableName}
+        FROM ${MYBATIS_XML_MODEL.javaModel.originTableName}
         WHERE id = ${r'#{id}'}
     </select>
 
     <select id="queryByIds" resultMap="BASE-RESULTMAP">
         SELECT
         <include refid="BASE-ALLCOLS"/>
-        FROM ${MYBATIS_INTEFACE_JAVA_MODEL.originTableName}
+        FROM ${MYBATIS_XML_MODEL.javaModel.originTableName}
         WHERE id IN
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             ${r'#{item}'}
@@ -31,18 +31,18 @@
     </select>
 
     <insert id="create"
-            parameterType="${MYBATIS_INTEFACE_JAVA_MODEL.packageName}.${MYBATIS_INTEFACE_JAVA_MODEL.className}"
+            parameterType="${MYBATIS_XML_MODEL.javaModel.fullClassName}"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ${MYBATIS_INTEFACE_JAVA_MODEL.originTableName}
+        INSERT INTO ${MYBATIS_XML_MODEL.javaModel.originTableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <#list MYBATIS_INTEFACE_JAVA_MODEL.fileds as filed>
+            <#list MYBATIS_XML_MODEL.javaModel.fileds as filed>
                 <if test="${filed.javaName} != null">
                     ${filed.originName},
                 </if>
             </#list>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <#list MYBATIS_INTEFACE_JAVA_MODEL.fileds as filed>
+            <#list MYBATIS_XML_MODEL.javaModel.fileds as filed>
                 <if test="${filed.javaName} != null">
                     ${r'#{'}${filed.javaName}${r'}'},
                 </if>
@@ -51,10 +51,10 @@
     </insert>
 
     <update id="update"
-            parameterType="com.duitang.buy.course.lesson.repository.dataobject.ClassLessonDO">
-        UPDATE ${MYBATIS_INTEFACE_JAVA_MODEL.originTableName}
+            parameterType="${MYBATIS_XML_MODEL.javaModel.fullClassName}">
+        UPDATE ${MYBATIS_XML_MODEL.javaModel.originTableName}
         <set>
-              <#list MYBATIS_INTEFACE_JAVA_MODEL.fileds as filed>
+              <#list MYBATIS_XML_MODEL.javaModel.fileds as filed>
                   <if test="${filed.javaName} != null">
                       ${filed.originName} = ${r'#{'}${filed.javaName}${r'}'},
                   </if>

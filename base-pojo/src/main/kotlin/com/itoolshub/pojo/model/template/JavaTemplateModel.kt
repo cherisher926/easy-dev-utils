@@ -14,10 +14,6 @@ data class JavaTemplateModel(var className: String, val packageName: String,
 
   var fileds: MutableList<JavaTemplaetField> = mutableListOf()
 
-  val originTableName: String
-    get() = tableModel.tableName
-
-
   init {
     // 转换成Java所需要的驼峰类
     fileds = tableModel.columns.asSequence()
@@ -32,6 +28,19 @@ data class JavaTemplateModel(var className: String, val packageName: String,
           )
         }.toMutableList()
   }
+
+  /**
+   * 原始表名
+   */
+  val originTableName: String
+    get() = tableModel.tableName
+
+  /**
+   * class全路径名称
+   */
+  val fullClassName: String
+    get() = packageName + '.' + className
+
 }
 
 class JavaTemplaetField(val javaName: String,

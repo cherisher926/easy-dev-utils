@@ -49,12 +49,18 @@ object FiledUtils {
     return dataTypeconversion.getOrDefault(realDataType, "Object")
   }
 
+  /**
+   * mybatis相关jdbc类型
+   */
+  private val mybatisJdbcTypeMap = mapOf<String, String>("int" to "INTEGER")
+
   fun parseDataType(dataType: String): String {
-    return if (dataType.lastIndexOf(')') > 0) {
+    val type = if (dataType.lastIndexOf(')') > 0) {
       dataType.substring(0, dataType.indexOf('('))
     } else {
       dataType
     }
+    return mybatisJdbcTypeMap.getOrDefault(type, type.toUpperCase())
   }
 
 

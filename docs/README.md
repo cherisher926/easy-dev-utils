@@ -1,5 +1,5 @@
 ## 概述
-项目主要应对日常开发环境中的一些小需求,比如说代码生成,数据库数据导出excel,数据库操作小脚本编写等等
+项目主要应对日常开发环境中的一些小需求,比如说代码生成,数据库数据导出excel,数据库操作小脚本编写等等,目前才开始随着自己的需求改变而改变的项目.
 
 ## 使用建议
 建议在工作项目中单独建立一个dev模块,该dev模块与项目本身尽量不要有依赖,只是作为一个子项目存在.
@@ -112,14 +112,28 @@ ExcelExportUtil.fromMap(result)
 
 ## base-pojo
 
-使用kotlin编写,Java中无缝使用.利用FreeMarker所构造的简易代码生成器,目前支持POJO类导出
+使用kotlin编写,Java中无缝使用.利用FreeMarker所构造的简易代码生成器,目前支持POJO类导出.
 
-### 导出JavaBean
-```java
+### tableModel信息
+是针对表结构的一种封装,后续的代码生成模板都是基于表结构而来的,可以使用base-sql查询出对应的结构,以下是kotlin写的语法.
+```kotlin
 //使用base-sql查询出相关的表结构
-MysqlColumnQuery query = new MysqlColumnQuery();
-Connection conn = query.init("db1.properties");
-final TableModel tableModel = query.queryDetailOfTable(conn, "database", "table");
-// 定义文件,渲染
-new JavaBeanTemplate(null, "Downloads/quding", tableModel).renderTemplate();
+val query: MysqlColumnQuery = MysqlColumnQuery()
+val conn: Connection = query.init("db1.properties")
+val tableModel: TableModel = query.queryDetailOfTable(conn, "database", "table")
+```
+
+### 导出相关信息
+
+**javaBean**
+
+```kotlin
+// 相对于~目录下的地址
+val targetPath = "workspace/quding-git/easy-dev-utils/base-example/src/main/java/com/itoolshub/easy/example/test"
+// java导出模板
+val javaBeanTemplate = JavaBeanTemplate(tableModel, targetPath)
+//导出javabean
+javaBeanTemplate.renderTemplate()
+//导出mybatis相关文件
+javaBeanTemplate.renderTemplateMybatis() 
 ```

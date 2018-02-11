@@ -2,6 +2,7 @@ package com.itoolshub.pojo.template.mybatis
 
 import com.itoolshub.pojo.model.template.All
 import com.itoolshub.pojo.model.template.JavaTemplateModel
+import com.itoolshub.pojo.model.template.MybatisInterfaceTemplateModel
 import com.itoolshub.pojo.template.AbstractTemplate
 import com.itoolshub.pojo.util.FiledUtils
 
@@ -14,8 +15,8 @@ open class MybatisMapperIntefaceTemplate(private val javaModel: JavaTemplateMode
                                          private val targetPath: String) : AbstractTemplate(){
 
   init {
-    mapRootData.put(All.MYBATIS_INTEFACE_JAVA_MODEL.key, javaModel)
-    mapRootData.put(All.MYBATIS_INTEFACE_PACKAGE_NAME.key, FiledUtils.parsePathToPackage(targetPath))
+    val model = MybatisInterfaceTemplateModel(javaModel,FiledUtils.parsePathToPackage(targetPath))
+    mapRootData.put(All.MYBATIS_INTEFACE_MODEL.key, model)
   }
 
   override fun filePath(): String {

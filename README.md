@@ -1,18 +1,9 @@
 # easy-dev-utils
 
 ### 概述
-日常开发中有很多小需求,比如临时导表,或者说一些公共的代码生成器.
+日常开发中使用到的一些小工具的封装,随着自己的需求变化而变化的项目
 
 
-### 使用建议
+### doc
 
-建议在工作项目中单独建立一个dev模块,该dev模块与项目本身尽量不要有依赖,只是作为一个子项目存在.
-在该dev项目中引入该easy-dev-utils项目,然后对于一些临时性需求,可以快速完成.
-
-### base-excel
-
-主要提供从数据库查询并自定义导出对应excel的需求.详情可见Test
-
-### base-sql
-
-主要提供dbutils以及spring-jdbc快速操作数据库的模板.
+[https://mrdear.github.io/easy-dev-utils/](https://mrdear.github.io/easy-dev-utils/)
