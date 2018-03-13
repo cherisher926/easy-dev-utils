@@ -1,9 +1,10 @@
-package com.itoolshub.easy.excel.util;
+package com.itoolshub.easy.excel.core;
 
 
 import com.itoolshub.easy.excel.exception.ExcelExportException;
 import com.itoolshub.easy.excel.model.ExcelFileType;
 import com.itoolshub.easy.excel.model.ExcelHeader;
+import com.itoolshub.easy.excel.util.MapUtils;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,7 +17,6 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -127,19 +127,6 @@ public class ExcelExportUtil implements Closeable {
     return this;
   }
 
-  /**
-   * 该方法调用,则需要调用方最终掉close方法关闭
-   */
-  public ExcelExportUtil writeTo(OutputStream os) {
-    try {
-      workbook.write(os);
-    } catch (IOException e) {
-      throw new ExcelExportException("writeTo fail", e);
-    }
-    return this;
-  }
-
-
   public void writeTo(String fileNameAndPath) {
     try (FileOutputStream fileOutputStream = new FileOutputStream(new File(fileNameAndPath))) {
       workbook.write(fileOutputStream);
@@ -170,8 +157,12 @@ public class ExcelExportUtil implements Closeable {
     if (null == mapData) {
       throw new ExcelExportException("this datasource can not be null");
     }
+    // header没设置则自动使用map中的key作为表头
     if (null == headerAndConvert) {
-      throw new ExcelExportException("this header can not be null");
+      headerAndConvert = new LinkedHashMap<>();
+      mapData.get(0).forEach((k,v) -> {
+        headerAndConvert.put(k, ExcelHeader.create(k));
+      });
     }
   }
 

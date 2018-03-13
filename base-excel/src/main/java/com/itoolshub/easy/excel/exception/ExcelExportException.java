@@ -11,6 +11,10 @@ public class ExcelExportException extends RuntimeException {
     super(message);
   }
 
+  public ExcelExportException(Throwable cause) {
+    super(cause);
+  }
+
   public ExcelExportException(String message, Throwable cause) {
     super(message, cause);
   }

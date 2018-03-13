@@ -108,6 +108,9 @@ ExcelExportUtil.fromMap(result)
     .writeTo("/tmp/test2.xlsx");
 
 ```
+4.注意事项
+
+* 表头没设置的话会用map中的key作为表头
 
 
 ## base-pojo

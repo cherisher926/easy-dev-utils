@@ -2,7 +2,7 @@ package com.itoolshub.easy.springjdbc;
 
 import com.itoolshub.easy.excel.convert.FuncitionConvertUtil;
 import com.itoolshub.easy.excel.model.ExcelHeader;
-import com.itoolshub.easy.excel.util.ExcelExportUtil;
+import com.itoolshub.easy.excel.core.ExcelExportUtil;
 import com.itoolshub.easy.excel.model.ExcelFileType;
 import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
 
