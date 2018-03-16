@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.Closeable;
@@ -42,6 +43,10 @@ public class ExcelExportUtil implements Closeable {
   private LinkedHashMap<String, ExcelHeader> headerAndConvert;
 
   private static int CHINESE_CHARACTER_WIDTH = 512;
+  /**
+   * 针对3w以上的数据量+XSS则使用SXSSFWorkbook导出
+   */
+  private static final Integer BIG_TABLE = 30000;
 
   // --------------datasource------------
 
@@ -163,6 +168,10 @@ public class ExcelExportUtil implements Closeable {
       mapData.get(0).forEach((k,v) -> {
         headerAndConvert.put(k, ExcelHeader.create(k));
       });
+    }
+
+    if (mapData.size() > BIG_TABLE && workbook instanceof XSSFWorkbook) {
+      this.workbook = new SXSSFWorkbook((XSSFWorkbook) workbook, 100);
     }
   }
 

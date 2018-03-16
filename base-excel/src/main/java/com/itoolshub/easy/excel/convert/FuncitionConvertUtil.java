@@ -17,7 +17,12 @@ public class FuncitionConvertUtil {
   /**
    * date转yyyy-MM-dd hh:MM:ss形式转换器
    */
-  public static Function<Date,String> date2String = v -> YMDHMS_.format(v);
+  public static Function<Date,String> date2String = v -> {
+    if (v == null) {
+      return "";
+    }
+    return YMDHMS_.format(v);
+  };
 
   /**
    * 小写转大写过程
