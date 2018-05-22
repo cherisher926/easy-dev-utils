@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.itoolshub</groupId>
+    <groupId>cn.ifreehub</groupId>
     <artifactId>easy-dev-utils</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>base-sql</module>
         <module>base-excel</module>
-        <module>base-pojo</module>
+        <module>base-util</module>
     </modules>
 
     <properties>

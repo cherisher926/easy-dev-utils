@@ -1,10 +1,10 @@
 package com.itoolshub.easy.springjdbc;
 
-import com.itoolshub.easy.excel.convert.FuncitionConvertUtil;
-import com.itoolshub.easy.excel.model.ExcelHeader;
-import com.itoolshub.easy.excel.core.ExcelExportUtil;
-import com.itoolshub.easy.excel.model.ExcelFileType;
-import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
+import cn.ifreehub.easy.excel.convert.FuncitionConvertUtil;
+import cn.ifreehub.easy.excel.model.ExcelHeader;
+import cn.ifreehub.easy.excel.core.ExcelExportUtil;
+import cn.ifreehub.easy.excel.model.ExcelFileType;
+import cn.ifreehub.easy.template.AbstractSpringJdbcTemplate;
 
 import org.h2.tools.RunScript;
 import org.junit.Before;

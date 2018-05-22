@@ -3,6 +3,8 @@ package com.itoolshub.easy.util;
 import org.junit.Assert;
 import org.junit.Test;
 
+import cn.ifreehub.util.PropertiesUtil;
+
 import java.util.Properties;
 
 public class PropertiesUtilTest {

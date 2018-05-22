@@ -1,7 +1,7 @@
 package com.itoolshub.easy.springjdbc;
 
 import com.google.common.collect.Maps;
-import com.itoolshub.easy.template.AbstractSpringJdbcTemplate;
+import cn.ifreehub.easy.template.AbstractSpringJdbcTemplate;
 
 import org.h2.tools.RunScript;
 import org.junit.Assert;
