@@ -12,7 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import cn.ifreehub.easy.excel.exception.ExcelReadException;
 import cn.ifreehub.easy.excel.model.ExcelFileType;
-import cn.ifreehub.easy.excel.util.ExcelUtil;
+import cn.ifreehub.easy.excel.helper.ExcelHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,11 +25,11 @@ import java.util.Map;
  * @author Quding Ding
  * @since 2018/3/7
  */
-public class ExcelReadUtil {
+public class ExcelReadBuilder {
 
   private Workbook workbook;
 
-  private ExcelReadUtil(Workbook workbook) {
+  private ExcelReadBuilder(Workbook workbook) {
     this.workbook = workbook;
   }
 
@@ -39,7 +39,7 @@ public class ExcelReadUtil {
    * @param path 地址
    * @return 该实例
    */
-  public static ExcelReadUtil from(String path) {
+  public static ExcelReadBuilder from(String path) {
     if (StringUtils.isEmpty(path)) {
       throw new IllegalArgumentException("file path is empty");
     }
@@ -47,9 +47,9 @@ public class ExcelReadUtil {
     try {
       FileInputStream inputStream = new FileInputStream(new File(path));
       if (type == ExcelFileType.XLS) {
-        return new ExcelReadUtil(new HSSFWorkbook(inputStream));
+        return new ExcelReadBuilder(new HSSFWorkbook(inputStream));
       }
-      return new ExcelReadUtil(new XSSFWorkbook(inputStream));
+      return new ExcelReadBuilder(new XSSFWorkbook(inputStream));
     } catch (IOException e) {
       throw new ExcelReadException(e);
     }
@@ -73,7 +73,7 @@ public class ExcelReadUtil {
         continue;
       }
       Map<String, Object> tempObj = Maps.newHashMap();
-      next.cellIterator().forEachRemaining(x -> tempObj.put(headers.get(x.getColumnIndex()), ExcelUtil.getValueFromCell(x)));
+      next.cellIterator().forEachRemaining(x -> tempObj.put(headers.get(x.getColumnIndex()), ExcelHelper.getValueFromCell(x)));
       result.add(tempObj);
     }
     close();

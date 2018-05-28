@@ -1,4 +1,4 @@
-package cn.ifreehub.easy.excel.util;
+package cn.ifreehub.easy.excel.helper;
 
 import org.apache.poi.ss.usermodel.Cell;
 
@@ -6,10 +6,11 @@ import org.apache.poi.ss.usermodel.Cell;
  * @author Quding Ding
  * @since 2018/3/7
  */
-public class ExcelUtil {
+public class ExcelHelper {
 
   /**
    * 转换一个cell中的值
+   *
    * @return cell中的值
    */
   public static Object getValueFromCell(Cell cell) {

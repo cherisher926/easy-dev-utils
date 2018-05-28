@@ -4,7 +4,7 @@ package cn.ifreehub.easy.excel.core;
 import cn.ifreehub.easy.excel.exception.ExcelExportException;
 import cn.ifreehub.easy.excel.model.ExcelFileType;
 import cn.ifreehub.easy.excel.model.ExcelHeader;
-import cn.ifreehub.easy.excel.util.MapUtils;
+import cn.ifreehub.easy.excel.helper.BeanHelper;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,7 +28,7 @@ import java.util.Objects;
  * @author Quding Ding
  * @since 2017/11/30
  */
-public class ExcelExportUtil implements Closeable {
+public class ExcelExportBuilder implements Closeable {
   /**
    * 导出内容的数据源
    */
@@ -50,16 +50,16 @@ public class ExcelExportUtil implements Closeable {
 
   // --------------datasource------------
 
-  private ExcelExportUtil(List<Map<String, Object>> mapData) {
+  private ExcelExportBuilder(List<Map<String, Object>> mapData) {
     this.mapData = mapData;
   }
 
-  public static ExcelExportUtil fromMap(List<Map<String, Object>> data) {
-    return new ExcelExportUtil(data);
+  public static ExcelExportBuilder fromMap(List<Map<String, Object>> data) {
+    return new ExcelExportBuilder(data);
   }
 
-  public static ExcelExportUtil fromBean(List<?> data) {
-    return new ExcelExportUtil(MapUtils.toListMap(data));
+  public static ExcelExportBuilder fromBean(List<?> data) {
+    return new ExcelExportBuilder(BeanHelper.toListMap(data));
   }
 
   /**
@@ -68,7 +68,7 @@ public class ExcelExportUtil implements Closeable {
    * @param data 数据源
    * @return 该实例
    */
-  public ExcelExportUtil andFormMap(List<Map<String, Object>> data) {
+  public ExcelExportBuilder andFormMap(List<Map<String, Object>> data) {
     this.mapData = data;
     return this;
   }
@@ -79,19 +79,19 @@ public class ExcelExportUtil implements Closeable {
    * @param data 数据源
    * @return 该实例
    */
-  public ExcelExportUtil andFormBean(List<?> data) {
-    this.mapData = MapUtils.toListMap(data);
+  public ExcelExportBuilder andFormBean(List<?> data) {
+    this.mapData = BeanHelper.toListMap(data);
     return this;
   }
 
   // --------------header------------
 
-  public ExcelExportUtil displayHeader(LinkedHashMap<String, ExcelHeader> headerAndConvert) {
+  public ExcelExportBuilder displayHeader(LinkedHashMap<String, ExcelHeader> headerAndConvert) {
     this.headerAndConvert = headerAndConvert;
     return this;
   }
 
-  public ExcelExportUtil excelType(ExcelFileType type) {
+  public ExcelExportBuilder excelType(ExcelFileType type) {
     if (null != workbook) {
       throw new ExcelExportException("the workbook has specified the type. You can not modify the workbook type again");
     }
@@ -104,7 +104,7 @@ public class ExcelExportUtil implements Closeable {
   }
 
   @SuppressWarnings("unchecked")
-  public ExcelExportUtil build(String sheetName) {
+  public ExcelExportBuilder build(String sheetName) {
     buildCheck();
     //创建表,如果已存在excelBook,那么新增表
     Sheet sheet = sheetName == null ? workbook.createSheet() : workbook.createSheet(sheetName);

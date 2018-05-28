@@ -87,6 +87,40 @@ header.put("gmt_create", ExcelHeader.create("用户创建时间",
       FuncitionConvertUtil.date2String));
 ```
 
+或使用注解方式
+```java
+
+  @Data
+  public static class User {
+
+    @ExcelFiled(columnName = "用户id")
+    private Long id;
+
+    @ExcelFiled(columnName = "用户名")
+    private String username;
+
+    @ExcelFiled(columnName = "用户邮箱")
+    private String email;
+
+    @ExcelFiled(columnName = "用户头像")
+    private String avatar;
+
+    @ExcelFiled(columnName = "用户状态")
+    private Integer status;
+
+    @ExcelFiled(columnName = "用户上次登录时间",convert = DateToStringConvert.class)
+    private Date last_login_date;
+
+    @ExcelFiled(columnName = "用户创建时间",convert = DateToStringConvert.class)
+    private Date gmt_create;
+  }
+```
+表头为
+```java
+LinkedHashMap<String, ExcelHeader> header = ExcelHeader.builder().withHeader(User.class).build();
+```
+
+
 3.导出
 ```java
 
@@ -112,31 +146,3 @@ ExcelExportUtil.fromMap(result)
 
 * 表头没设置的话会用map中的key作为表头
 
-
-## base-pojo
-
-使用kotlin编写,Java中无缝使用.利用FreeMarker所构造的简易代码生成器,目前支持POJO类导出.
-
-### tableModel信息
-是针对表结构的一种封装,后续的代码生成模板都是基于表结构而来的,可以使用base-sql查询出对应的结构,以下是kotlin写的语法.
-```kotlin
-//使用base-sql查询出相关的表结构
-val query: MysqlColumnQuery = MysqlColumnQuery()
-val conn: Connection = query.init("db1.properties")
-val tableModel: TableModel = query.queryDetailOfTable(conn, "database", "table")
-```
-
-### 导出相关信息
-
-**javaBean**
-
-```kotlin
-// 相对于~目录下的地址
-val targetPath = "workspace/quding-git/easy-dev-utils/base-example/src/main/java/com/itoolshub/easy/example/test"
-// java导出模板
-val javaBeanTemplate = JavaBeanTemplate(tableModel, targetPath)
-//导出javabean
-javaBeanTemplate.renderTemplate()
-//导出mybatis相关文件
-javaBeanTemplate.renderTemplateMybatis() 
-```
